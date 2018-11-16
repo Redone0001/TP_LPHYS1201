@@ -6,6 +6,7 @@
 using namespace std;
 
 bool saveCSV(string fName, vector <string> & date, vector <float> & amount, vector <string> & comment){
+	//cout<<"In save function"<<endl;
 	ofstream fs (fName);
 	if (! fs.is_open()) return 0;
 
@@ -27,11 +28,17 @@ return 1;
 }
 
 bool readCSV(string fileName, vector <string> & date, vector <float> & amount, vector <string> & comment){
+	//cout<<"In read function"<<endl;
 	ifstream fs (fileName);
+	//cout<<fileName<<endl;
+	//cout<<fs.is_open()<<endl;
+	
 	bool firstLine = false;
-	while(!fs.eof()){
-		string line = "";
-		getline(fs,line);
+	string line = "";
+	while(getline(fs,line)){
+		//cout <<"in while"<<endl;
+		//cout<<fs.eof()<<endl;
+
     		if (!firstLine){
       			firstLine = true;
       			continue;
@@ -42,6 +49,7 @@ bool readCSV(string fileName, vector <string> & date, vector <float> & amount, v
 		string c;
 		if (splitLine(line,d,a,c)){
 			date.push_back(d);
+			//cout <<a<<endl;
 			amount.push_back(a);
 			comment.push_back(c);
 		}
@@ -56,8 +64,8 @@ int main(){
 	vector <float> amount;
 	vector <string> comment;
  	vector <string> date;
-	cout <<"test";
-	string fName = "../MyBudget.csv";
+	//cout <<"test"<<endl;
+	string fName = "budget.csv";
 	readCSV(fName,date,amount,comment);
 	saveCSV(fName+"_bak",date,amount,comment);  
 
